@@ -15,4 +15,8 @@ router
     .route('/login')
     .post(accountsController.login)
 
+router
+    .route('/getAllManagers')
+    .get(middle.authenticateToken,accountsController.getAllManagers);
+
 module.exports = router;

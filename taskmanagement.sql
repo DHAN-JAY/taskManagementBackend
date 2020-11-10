@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `taskmanagement` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `taskmanagement`;
 -- MySQL dump 10.13  Distrib 8.0.22, for Win64 (x86_64)
 --
 -- Host: localhost    Database: taskmanagement
@@ -50,10 +48,11 @@ CREATE TABLE `projects` (
   `assignedManager` int NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `userId` (`userId`),
   CONSTRAINT `projects_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,6 +71,7 @@ CREATE TABLE `tasks` (
   `assignedDeveloper` int NOT NULL,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isDeleted` tinyint DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `managerId` (`managerId`),
   CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`managerId`) REFERENCES `accounts` (`id`)
@@ -87,4 +87,4 @@ CREATE TABLE `tasks` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-11-10  8:52:44
+-- Dump completed on 2020-11-10 10:34:23

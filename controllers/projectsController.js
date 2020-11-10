@@ -72,3 +72,52 @@ exports.modifyProject = (req,res) => {
     }
 }
 
+exports.getAllProjects = (req, res) => {
+    try {
+        let userObj = req.user;
+        let query, params;
+
+        if(userObj.details[0].role.toUpperCase() === 'ADMIN'){
+            query = "SELECT id, projectName, projectDesc, created, modified FROM projects WHERE isDeleted = 0;";
+            params = [];
+        }else if(userObj.details[0].role.toUpperCase() === 'MANAGER'){
+            query = "SELECT id, projectName, projectDesc, created, modified FROM projects WHERE isDeleted = 0 AND assignedManager = ?;";
+            params = [userObj.details[0].id];
+        }
+
+        db.query(query, params, (err, result) => {
+            if(err) throw err;
+
+            res.status(200).json(result);
+        })
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({
+            status: "FAILED",
+            messsage: e
+        });
+    }
+}
+
+exports.deleteProject = (req, res) => {
+    try {
+        let projectId = req.body.projectId * 1;
+        let query = "UPDATE projects SET isDeleted = 1 WHERE id = ?;";
+        let params = [projectId];
+
+        db.query(query, params, (err, result) => {
+            if(err) throw err;
+
+            res.status(200).json({
+                status: "SUCCESS"
+            });
+        })
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({
+            status: "FAILED",
+            messsage: e
+        })
+    }
+}
+
