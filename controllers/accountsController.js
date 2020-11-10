@@ -141,3 +141,22 @@ exports.getAllManagers = (req, res) => {
         })
     }
 }
+
+exports.getAllDevelopers = (req, res) => {
+    try {
+         const query = "SELECT id,userName,email,role FROM accounts WHERE UPPER(role) like 'DEVELOPER';";
+         const params = [];
+
+         db.query(query, params, (err, result) => {
+             if(err) throw err;
+
+             res.status(200).json(result);
+         })
+    } catch (e) {
+        console.log(e);
+        res.status(400).json({
+            status: "FAILED",
+            message: e
+        })
+    }
+}

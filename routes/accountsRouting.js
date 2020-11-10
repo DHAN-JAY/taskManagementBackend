@@ -19,4 +19,8 @@ router
     .route('/getAllManagers')
     .get(middle.authenticateToken,middle.adminRestrict,accountsController.getAllManagers);
 
+router
+    .route('/getAllDevelopers')
+    .get(middle.authenticateToken,middle.adminManagerRestriction,accountsController.getAllDevelopers);
+
 module.exports = router;
