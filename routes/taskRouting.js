@@ -7,4 +7,12 @@ router
     .route('/createTask')
     .post(middle.authenticateToken, taskController.createTask);
 
+router
+    .route('/updateTaskStatus')
+    .post(middle.authenticateToken, taskController.updateTaskStatus);
+
+router
+    .route('/getAllTasks')
+    .post(middle.authenticateToken, taskController.getAllTasks);
+
 module.exports = router;
