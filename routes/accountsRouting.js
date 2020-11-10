@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
     .route('/getAllAccounts')
-    .get(middle.authenticateToken,accountsController.getAllUsers);
+    .get(middle.authenticateToken, middle.adminRestrict,accountsController.getAllUsers);
 
 router
     .route('/signup')
@@ -17,6 +17,6 @@ router
 
 router
     .route('/getAllManagers')
-    .get(middle.authenticateToken,accountsController.getAllManagers);
+    .get(middle.authenticateToken,middle.adminRestrict,accountsController.getAllManagers);
 
 module.exports = router;

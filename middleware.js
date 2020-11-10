@@ -65,3 +65,29 @@ exports.adminRestrict = (req, res, next) => {
     })
   }
 }
+
+exports.managerRestrict = (req, res, next) => {
+  try {
+    const user = req.user;
+    const query = "SELECT role FROM accounts WHERE id = ?;";
+    const params = [user.details[0].id];
+
+    db.query(query, params, (err, result) => {
+      if(err) throw err;
+      if(result[0].role.toUpperCase() === "MANAGER"){
+        next();
+      }else{
+        res.status(400).json({
+          status: "FAILED",
+          message: "Restricted to only Managers"
+        })
+      }
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json({
+      status: "FAILED",
+      message: e
+    })
+  }
+}
