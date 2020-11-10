@@ -31,7 +31,7 @@ exports.createTask = (req, res) => {
         let projectId = req.body.projectId * 1;
         let assignedDeveloper = req.body.assignedDeveloper;
 
-        const query = "INSERT INTO tasks(managerId, projectId, taskName, taskDesc, status, assignedDeveloper) VALUES (?,?,?,?,?);";
+        const query = "INSERT INTO tasks(managerId, projectId, taskName, taskDesc, status, assignedDeveloper) VALUES (?,?,?,?,?,?);";
         const params = [userObj.details[0].id, projectId, taskName, taskDesc, 0, assignedDeveloper];
 
         db.query(query, params,async (err, result) => {
